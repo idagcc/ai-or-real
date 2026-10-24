@@ -1,0 +1,36 @@
+AI OR REAL — WINDOWS TOUCHSCREEN GAME
+
+1. Extract the entire ZIP to a folder on the Windows computer.
+2. Set the touchscreen display to Portrait, 2160 x 3840 in Windows Display Settings.
+3. Double-click "AI or Real.exe". Keep all extracted files together.
+
+The game opens fullscreen. It includes all 50 approved Figma image pairs and works offline.
+Each game draws 10 different pairs and randomizes the real image's position.
+Tap a registration field to use the on-screen keyboard; tap Done to close it.
+
+BACKGROUND AND SOUND
+The supplied portrait video loops behind all screens. Neon panels animate between pages.
+An original electronic music score loops with tap, answer and completion sounds.
+Open Operator Settings to mute audio or adjust music and effects separately.
+Question timing begins after the images and entrance animation are ready.
+Check the connected speakers and set a suitable volume before the event.
+
+OPERATOR CONTROLS
+Ctrl + Shift + A   Open settings from the leaderboard
+F11                Leave or restore fullscreen
+Ctrl + Shift + Q   Quit
+
+DEFAULT SCORING
+1,000 points for a correct answer, plus up to 90 speed points.
+Wrong or timed-out answers earn zero. Accuracy always ranks above speed.
+Edit points, timing and question count in Operator Settings.
+The approved public leaderboard displays correct answers and time; CSV export also includes points.
+
+DATA
+Completed games are saved locally under:
+%APPDATA%\AI or Real\ai-or-real-data.json
+Email addresses appear only in the operator's exported results.
+Email checks cover format and common typing mistakes, not mailbox ownership.
+
+Before the event, play a full game on the actual touchscreen and check touch alignment.
+This build was packaged on macOS and has not been run on the installation Windows hardware.

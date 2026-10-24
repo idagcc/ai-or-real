@@ -1,0 +1,38 @@
+AI OR REAL — VALIDATION, 24 OCTOBER 2026
+
+PASS: TypeScript check and production build.
+PASS: 56 core unit tests (random selection, scoring, deadlines, input validation, ranking, CSV safety, bank validation).
+PASS: Native storage restart, concurrent writes, duplicate-save retries, validation, backup recovery and clearing checks.
+PASS: External content override, local image loading, path and missing-file rejection checks.
+PASS: All 50 production image pairs and 100 original Figma image hashes and byte sizes.
+PASS: Full browser round: ten distinct pairs, nine correct choices and one incorrect, every choice locked after first tap, results saved and shown after reload.
+PASS: Email typo correction, required registration fields, touchscreen keyboard and instructions flow.
+PASS: Edited one-question/five-second test round timed out and saved 0/1; standard ten-question/thirty-second settings restored.
+PASS: Automatic return from results to leaderboard.
+PASS: Native 2160x3840 portrait layout, stage bounds match display and no missing static images.
+PASS: Windows x64 executable, ZIP integrity, offline assets and native bridge present.
+
+LIMIT: Windows executable/installer and physical 65-inch touchscreen have not been run on Windows hardware. The delivered ZIP contains the complete Windows app; extract all files before launching.
+
+24 OCTOBER 2026 — ELECTRON FLOW REVIEW
+PASS: Built from the standalone AI or Real project folder.
+PASS: Native Electron game launched from local built files on macOS, including content/storage bridge startup.
+PASS: Native Electron review window: leaderboard, empty/filled registration, instructions, game, correct/incorrect feedback, results.
+PASS: Single-instance switching between playable game and review window.
+PASS: Windows ZIP contains AI or Real.exe and Review-AI-or-Real.cmd; all 100 image hashes and archive integrity verified.
+LIMIT: The Windows executable still requires testing on the actual Windows touchscreen.
+
+24 OCTOBER 2026 — SUPPLIED KEYBOARD, v1.0.1
+PASS: Provided Regular 400 font matches byte-for-byte in source and packaged Windows application; license included.
+PASS: Live computed keyboard styles: 2160px width; 50px key text, 48px header, 400 weight; 174px × 116px standard keys; 130px bottom minimum; 360px space; 18px gaps; 16px corners; specified colors, border, shadow and padding.
+PASS: Supplied QWERTY/number rows (10, 10, 9, 7 keys), shift, backspace, Done blur and focus retention.
+PASS: Completed playable registration using only the supplied touch keyboard, then reached instructions.
+PASS: Updated keyboard displayed in native Electron review; all files remain local.
+PASS: Windows v1.0.1 ZIP integrity and bundled font/license.
+
+24 OCTOBER 2026 — AGENT TERMINOLOGY, v1.0.2
+PASS: All five preview screens checked; no Player role wording visible.
+PASS: Agent registration, leaderboard Agent heading and game AGENT label.
+PASS: Agent name/Agent email CSV headings; agent name storage validation message.
+PASS: 56 core tests, desktop persistence/content tests, production build and Windows ZIP integrity.
+PASS: Native Electron Agent Registration preview refreshed and checked.

@@ -1,0 +1,11 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import Review from './Review';
+import '@fontsource/noto-kufi-arabic/400.css';
+import '@fontsource/noto-kufi-arabic/500.css';
+import '@fontsource/noto-kufi-arabic/700.css';
+import './styles.css';
+const review = new URLSearchParams(location.search).get('review') === '1';
+if (review) document.title = 'AI or Real — Full Flow Review';
+createRoot(document.getElementById('root')!).render(<React.StrictMode>{review ? <Review /> : <App />}</React.StrictMode>);

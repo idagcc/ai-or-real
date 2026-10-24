@@ -1,0 +1,22 @@
+.stage-transition{position:absolute;inset:0;width:2160px;height:3840px;pointer-events:none;isolation:isolate}
+.stage-transition__scene{position:absolute;inset:0;width:2160px;height:3840px;transform-origin:50% 45%}
+.stage-transition__current{z-index:1;pointer-events:auto}
+.stage-transition[data-transitioning=true]>.stage-transition__current{pointer-events:none}
+.stage-transition__arriving{animation:stage-scene-arrive 500ms cubic-bezier(.22,1,.36,1) both;will-change:opacity,transform}
+.stage-transition__outgoing{z-index:2;pointer-events:none;animation:stage-scene-depart 240ms cubic-bezier(.4,0,1,1) both;will-change:opacity,transform}
+.stage-transition__outgoing *{pointer-events:none!important}
+.stage-transition__sweep{position:absolute;inset:0;z-index:3;overflow:clip;pointer-events:none}
+.stage-transition__sweep:before{content:'';position:absolute;left:206px;top:0;width:1748px;height:3px;background:linear-gradient(90deg,transparent 0%,rgba(91,233,255,.08) 15%,rgba(190,250,255,.45) 50%,rgba(91,233,255,.08) 85%,transparent 100%);box-shadow:0 0 18px 3px rgba(91,233,255,.12);animation:stage-neon-sweep 600ms cubic-bezier(.22,.61,.36,1) both;will-change:opacity,transform}
+.neon-board-enter,.approved-game-panel,.approved-results-panel{animation:stage-board-power-on 620ms cubic-bezier(.22,1,.36,1) both;transform-origin:50% 45%}
+.neon-board-enter .approved-panel-halo,.approved-game-panel .ag-panel-halo,.approved-results-panel .approved-results-panel-halo{animation:stage-neon-breathe 4800ms ease-in-out 650ms infinite both}
+.neon-board-enter .approved-panel-bloom,.approved-game-panel .ag-panel-bloom,.approved-results-panel .approved-results-panel-bloom{animation:stage-neon-bloom 5600ms ease-in-out 650ms infinite both}
+@keyframes stage-scene-arrive{from{opacity:0;transform:translate3d(0,32px,0) scale(.99)}to{opacity:1;transform:none}}
+@keyframes stage-scene-depart{from{opacity:1;transform:none}to{opacity:0;transform:translate3d(0,-20px,0) scale(.995);visibility:hidden}}
+@keyframes stage-neon-sweep{0%{opacity:0;transform:translate3d(0,560px,0)}20%{opacity:.7}78%{opacity:.4}100%{opacity:0;transform:translate3d(0,2940px,0)}}
+@keyframes stage-board-power-on{0%{opacity:0;transform:scale(.982)}35%{opacity:.8}100%{opacity:1;transform:none}}
+@keyframes stage-neon-breathe{0%,100%{opacity:.5525}50%{opacity:.66}}
+@keyframes stage-neon-bloom{0%,100%{opacity:.65}50%{opacity:.73}}
+@media(prefers-reduced-motion:reduce){
+  .stage-transition__arriving,.stage-transition__outgoing,.neon-board-enter,.approved-game-panel,.approved-results-panel,.neon-board-enter .approved-panel-halo,.approved-game-panel .ag-panel-halo,.approved-results-panel .approved-results-panel-halo,.neon-board-enter .approved-panel-bloom,.approved-game-panel .ag-panel-bloom,.approved-results-panel .approved-results-panel-bloom{animation:none!important;will-change:auto!important}
+  .stage-transition__sweep{display:none}
+}

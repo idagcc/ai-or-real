@@ -1,0 +1,24 @@
+AI OR REAL — LOCAL MEDIA
+
+BACKGROUND VIDEO
+DGE_BG_Potrite.mp4 is the video supplied by the user, copied without alteration.
+2160 x 3840, 30 fps, 10 seconds, H.264; no audio track.
+SHA-256: 8e1bd76bab268cda51c997dc9bbeae511f34995794e905d6016edc61f3f98def
+background-poster.jpg is its first frame, resized for the loading fallback.
+
+ORIGINAL MUSIC: NEON COMMON GROUND
+Composed for this application using deterministic local synthesis.
+No samples, downloaded recordings, vocals or third-party music are included.
+Editable notes, synthesis and arrangement: scripts/create-audio-score.py.
+Master: outputs/media/music-loop.wav (24-bit stereo PCM).
+Runtime loop: music-loop.ogg (Vorbis, stereo, 44.1 kHz).
+90 BPM, 16 bars, 42.666667 seconds; 1,881,600 decoded frames.
+Decoded RMS: -20.48 dBFS. Decoded peak: -6.86 dBFS.
+Circular pad envelopes, delays and ambience preserve the loop boundary.
+SHA-256: 1bbe9c59836dd3d97cb922262f563020df744a565887f56f77b751c958f843a0
+
+SOUND EFFECTS
+Tap, transition, correct, incorrect, timeout and completion cues are generated
+locally with Web Audio oscillators and filtered noise in src/presentation/audio.ts.
+
+All runtime media is packaged locally and requires no internet connection.

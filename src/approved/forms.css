@@ -1,0 +1,28 @@
+.approved-registration,.approved-instructions{position:absolute;inset:0;font-family:inherit;font-style:normal;line-height:normal;white-space:nowrap}
+.approved-registration p,.approved-instructions p,.approved-registration label{position:absolute;line-height:normal}
+.approved-registration-player,.approved-registration-title{font-size:106px;font-weight:700;text-align:center;color:#fff}
+.approved-registration-player{left:885.6px;top:693.888px;width:388.8px;height:201.216px}
+.approved-registration-title{left:692.064px;top:854.016px;width:775.872px;height:200.832px}
+.approved-registration-intro{font-size:48px;font-weight:400;text-align:center;color:#d9ecff}
+.approved-registration-intro-first{left:765.936px;top:1092.096px;width:628.128px;height:91.008px}
+.approved-registration-intro-second{left:757.08px;top:1186.944px;width:645.84px;height:91.008px}
+.approved-registration-name-label,.approved-registration-email-label{left:350px;font-size:56px;font-weight:700;color:#fff}
+.approved-registration-name-label{top:1453.824px}
+.approved-registration-email-label{top:2004.096px}
+.approved-registration-field{position:absolute;left:350px;width:1460px;height:244.83px}
+.approved-registration-field-art{position:absolute;inset:0;pointer-events:none}
+.approved-registration-field-art img{position:absolute;display:block;max-width:none}
+.approved-registration-field input{position:absolute;left:100px;top:0;width:1260px;height:244.83px;border:0;border-radius:0;background:transparent;outline:0;box-shadow:none;padding:0;color:#fff;font-family:inherit;font-size:52px;font-weight:400;line-height:normal;letter-spacing:normal;caret-color:#a0f5ff}
+.approved-registration-field input::placeholder{color:#b8d8f1;opacity:1}
+.approved-registration-field input:focus-visible{outline:none}
+.approved-registration-ready{left:684.504px;top:2477.952px;width:790.992px;font-size:52px;font-weight:700;text-align:center;color:#d9ecff}
+.approved-registration-continue{left:700.056px;top:2630.016px;width:759.888px;font-size:40px;font-weight:400;text-align:center;color:#b8d8f1}
+.approved-registration-validation{left:450px;width:1260px;white-space:normal;font-size:30px;color:#ffb8bb;font-weight:400;line-height:1.5!important}
+.approved-registration-name-error{top:1864px}
+.approved-registration-email-error{top:2414px}
+.approved-registration-email-suggestion{position:absolute;left:450px;top:2414px;max-width:1260px;overflow:hidden;text-overflow:ellipsis;border:0;background:transparent;padding:0;color:#b8d8f1;font-family:inherit;font-size:30px;line-height:1.5}
+.approved-instructions h1{position:absolute;left:376.056px;top:711.936px;width:1407.888px;height:261.888px;font-size:138px;font-weight:700;line-height:normal;text-align:center;color:#fff;white-space:nowrap}
+.approved-instructions h2{position:absolute;left:841.536px;top:1001.856px;width:476.928px;height:129.024px;font-size:68px;font-weight:700;line-height:normal;text-align:center;color:#5be9ff;white-space:nowrap}
+.approved-instruction-number{left:350px;font-size:76px;font-weight:700;color:#5be9ff}
+.approved-instruction-heading{left:540px;font-size:56px;font-weight:700;color:#fff}
+.approved-instruction-copy{left:540px;font-size:48px;font-weight:400;color:#d9ecff}
