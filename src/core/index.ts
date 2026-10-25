@@ -61,7 +61,7 @@ export const DEFAULT_SETTINGS: Readonly<GameSettings> = Object.freeze({
   baseCorrectPoints: 1_000,
   maxSpeedBonus: 90,
   feedbackDurationMs: 1_800,
-  idleTimeoutSeconds: 120,
+  idleTimeoutSeconds: 30,
   resultsTimeoutSeconds: 30,
   eventName: 'AI OR REAL',
 });

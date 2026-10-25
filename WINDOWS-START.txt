@@ -7,6 +7,9 @@ AI OR REAL — WINDOWS TOUCHSCREEN GAME
 The game opens fullscreen. It includes all 50 approved Figma image pairs and works offline.
 Each game draws 10 different pairs and randomizes the real image's position.
 Tap a registration field to use the on-screen keyboard; tap Done to close it.
+Registration, instructions and gameplay return home after 30 seconds without interaction.
+This clears the unfinished session. Tap or type to restart the inactivity timer.
+The inactivity period can be adjusted in Operator Settings.
 
 BACKGROUND AND SOUND
 The supplied portrait video loops behind all screens. Neon panels animate between pages.

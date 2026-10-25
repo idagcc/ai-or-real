@@ -24,6 +24,15 @@ declare global { interface Window { kiosk?: KioskBridge } }
 const STORAGE_KEY = 'ai-or-real.store.v1';
 const MAX_RESULTS = 50000;
 
+function normalizeStoredSettings(settings: Partial<GameSettings> = {}): GameSettings {
+  // Upgrade the previous two-minute default on existing installations too.
+  return normalizeSettings({
+    ...settings,
+    idleTimeoutSeconds: settings.idleTimeoutSeconds === 120
+      ? DEFAULT_SETTINGS.idleTimeoutSeconds : settings.idleTimeoutSeconds,
+  });
+}
+
 function browserStore(): StoredState {
   let raw: string | null;
   try { raw = window.localStorage.getItem(STORAGE_KEY); }
@@ -43,7 +52,7 @@ function browserStore(): StoredState {
         throw new Error('Invalid result.');
       }
     }
-    return { results, settings: normalizeSettings(state.settings || {}) };
+    return { results, settings: normalizeStoredSettings(state.settings || {}) };
   } catch {
     throw new Error('The saved browser leaderboard could not be read. Its data has been preserved; contact the operator.');
   }
@@ -57,7 +66,7 @@ function writeBrowserStore(state: StoredState): void {
 export async function loadStore(): Promise<StoredState> {
   if (window.kiosk) {
     const loaded = await window.kiosk.loadStore();
-    return { ...loaded, settings: normalizeSettings(loaded.settings || {}) };
+    return { ...loaded, settings: normalizeStoredSettings(loaded.settings || {}) };
   }
   return browserStore();
 }

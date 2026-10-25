@@ -49,7 +49,7 @@ function App() {
   const [admin, setAdmin] = useState(false);
   const started = useRef(0);
   const answerLock = useRef(true);
-  const lastActivity = useRef(Date.now());
+  const inactivityEnabled = ['register', 'instructions', 'game'].includes(screen) && !admin;
   const screenRef = useRef(screen); screenRef.current = screen;
   const viewport = useRef<HTMLDivElement>(null);
   const current = round[index];
@@ -86,7 +86,6 @@ function App() {
     answerLock.current = true; setScreen('home'); setPlayer(emptyPlayer); setAttempted(false);
     setKeyboardField(null); setRound([]); setAnswers([]); setIndex(0); setFeedback(null); setResult(null);
     setReady(false); setImageError(''); setSaveError(''); setSaved(false); 
-    lastActivity.current = Date.now();
   }, []);
 
   useEffect(() => platform.onAdminRequested(() => {
@@ -94,18 +93,31 @@ function App() {
   }), []);
 
   useEffect(() => {
-    const activity = () => { lastActivity.current = Date.now(); };
-    window.addEventListener('pointerdown', activity); window.addEventListener('keydown', activity);
-    return () => { window.removeEventListener('pointerdown', activity); window.removeEventListener('keydown', activity); };
-  }, []);
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      if (!['register','instructions','game'].includes(screen) || admin) return;
-      const idle = (Date.now() - lastActivity.current) / 1000;
-      if (idle >= settings.idleTimeoutSeconds) reset();
-    }, 1000);
-    return () => window.clearInterval(timer);
-  }, [screen, settings.idleTimeoutSeconds, admin, reset]);
+    if (!inactivityEnabled) return;
+    const timeoutMs = settings.idleTimeoutSeconds * 1000;
+    let lastActivity = Date.now();
+    let timer: number;
+    const check = () => {
+      window.clearTimeout(timer);
+      const remaining = timeoutMs - (Date.now() - lastActivity);
+      if (remaining <= 0) reset();
+      else timer = window.setTimeout(check, remaining);
+    };
+    const activity = () => { lastActivity = Date.now(); check(); };
+    const visibility = () => { if (document.visibilityState === 'visible') check(); };
+    check();
+    window.addEventListener('pointerdown', activity, true);
+    window.addEventListener('keydown', activity, true);
+    window.addEventListener('input', activity, true);
+    document.addEventListener('visibilitychange', visibility);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('pointerdown', activity, true);
+      window.removeEventListener('keydown', activity, true);
+      window.removeEventListener('input', activity, true);
+      document.removeEventListener('visibilitychange', visibility);
+    };
+  }, [inactivityEnabled, settings.idleTimeoutSeconds, reset]);
 
   useEffect(() => {
     if (screen !== 'game' || !current) return;
@@ -197,7 +209,7 @@ function App() {
       <ApprovedChrome panel={screen!=='game'&&screen!=='results'} sceneKey={sceneKey}/>
       {booting ? <main className="approved-error"><LoaderCircle className="spin" size={90}/><p>Loading…</p></main> : bootError ? <main className="approved-error"><h1>Operator attention needed</h1><p>{bootError}</p><button className="primary" onClick={()=>void boot()}>Try again</button></main> : <>
         <StageTransition sceneKey={sceneKey}>
-        {screen==='home'&&<ApprovedHome rows={ranked.slice(0,5)} onStart={()=>{setScreen('register');lastActivity.current=Date.now();}}/>}
+        {screen==='home'&&<ApprovedHome rows={ranked.slice(0,5)} onStart={()=>setScreen('register')}/>}
         {screen==='register'&&<ApprovedRegistration player={player} onChange={setPlayer} onContinue={register} errors={errors} attempted={attempted} onFocusField={setKeyboardField} keyboardOpen={!!keyboardField}/>}
         {screen==='instructions'&&<ApprovedInstructions onNext={startRound} questionsPerRound={settings.questionsPerRound} timeLimit={settings.questionTimeLimitSeconds}/>}
         {screen==='game'&&current&&<ApprovedGame question={current} realFirst={realFirst[index]} index={index} count={round.length} playerName={player.name} elapsedMs={roundSettings.questionTimeLimitSeconds*1000-remaining} correctCount={answers.filter(a=>a.correct).length} score={answers.reduce((sum,a)=>sum+a.points,0)} feedback={feedback} ready={ready} imageError={imageError} onAnswer={answer} onRetry={()=>setLoadAttempt(a=>a+1)} onExit={reset}/>}
@@ -216,7 +228,7 @@ function sameCompetition(a:GameSettings,b:GameSettings) {return a.questionsPerRo
 
 function Admin({settings,results,bankSize,demo,onClose,onSaved,onCleared,onReload}:{settings:GameSettings;results:Result[];bankSize:number;demo:boolean;onClose:()=>void;onSaved:(settings:GameSettings)=>void;onCleared:()=>void;onReload:()=>Promise<void>}) {
  const [draft,setDraft]=useState(settings); const [message,setMessage]=useState(''); const [busy,setBusy]=useState(false); const [confirm,setConfirm]=useState(false);
- const fields:[keyof GameSettings,string,number,number][]=[['questionsPerRound','Questions per game',1,Math.min(50,bankSize)],['questionTimeLimitSeconds','Seconds per question',5,120],['baseCorrectPoints','Points per correct answer',100,100000],['maxSpeedBonus','Maximum speed bonus',0,Math.floor(draft.baseCorrectPoints/(draft.questionsPerRound+1))],['feedbackDurationMs','Answer reveal (milliseconds)',500,10000],['idleTimeoutSeconds','Registration idle reset (seconds)',30,900],['resultsTimeoutSeconds','Results display (seconds)',5,300]];
+ const fields:[keyof GameSettings,string,number,number][]=[['questionsPerRound','Questions per game',1,Math.min(50,bankSize)],['questionTimeLimitSeconds','Seconds per question',5,120],['baseCorrectPoints','Points per correct answer',100,100000],['maxSpeedBonus','Maximum speed bonus',0,Math.floor(draft.baseCorrectPoints/(draft.questionsPerRound+1))],['feedbackDurationMs','Answer reveal (milliseconds)',500,10000],['idleTimeoutSeconds','Inactivity reset (seconds)',30,900],['resultsTimeoutSeconds','Results display (seconds)',5,300]];
  async function run(action:()=>Promise<void>) {setBusy(true);setMessage('');try{await action();}catch(error){setMessage(msg(error));}finally{setBusy(false);}}
  return <div className="admin-backdrop"><section className="admin-panel"><div className="admin-title"><div><Settings2 size={24}/><h2>Operator settings</h2></div><button className="icon-button" aria-label="Close settings" onClick={onClose}><X/></button></div><p className="admin-info">{bankSize} question pairs · {demo?'Demo bank':'Production bank'} · {results.length} saved results</p><div className="admin-fields">{fields.map(([key,label,min,max])=><label key={key}>{label}<input type="number" min={min} max={max} value={draft[key]} onChange={e=>setDraft({...draft,[key]:Number(e.target.value)})}/></label>)}</div><div className="scoring-formula">Correct = base + round(bonus × (1 − seconds / time limit))<br/>Wrong or timed out = 0. Speed bonus is capped so accuracy always wins.<br/>Changing scoring starts a separate leaderboard; exports include all results.</div><AudioControls/><button className="primary" disabled={busy} onClick={()=>void run(async()=>{const value=normalizeSettings(draft);await platform.saveSettings(value);setDraft(value);onSaved(value);setMessage('Settings saved.');})}>Save settings <Check size={20}/></button><div className="admin-actions"><button className="secondary" disabled={busy} onClick={()=>void run(async()=>{const done=await platform.exportResults(exportResultsCsv(results));setMessage(done?'Results exported.':'Export cancelled.');})}><Download size={18}/> Export all results</button><button className="secondary" disabled={busy} onClick={()=>void run(async()=>{await onReload();setMessage('Image bank reloaded.');})}>Reload image bank</button><button className="secondary" disabled={busy} onClick={()=>void run(()=>platform.setFullscreen(false))}>Exit fullscreen</button><button className="danger-text" disabled={busy} onClick={()=>setConfirm(true)}>Clear leaderboard…</button></div>{confirm&&<div className="clear-confirm"><p>Clear all {results.length} results from the device? Export them first if you need a copy.</p><button disabled={busy} className="secondary" onClick={()=>void run(async()=>{await platform.clearResults();onCleared();setConfirm(false);setMessage('Leaderboard cleared.');})}>Yes, clear results</button><button className="text-button" onClick={()=>setConfirm(false)}>Cancel</button></div>}{message&&<p className="admin-message" role="status">{message}</p>}<p className="admin-shortcuts">Ctrl + Shift + A: settings · F11: fullscreen · Ctrl + Shift + Q: quit<br/>Close settings to begin a game. Emails are available only in exported results.</p></section></div>;
 }

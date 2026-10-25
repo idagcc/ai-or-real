@@ -24,8 +24,6 @@ export function Instructions({ onNext }: InstructionsProps) {
     <p className="approved-instruction-copy" style={{ top: 2252.16 }}>Red means incorrect.</p>
     <p className="approved-instruction-number" style={{ top: 2383.872 }}>04</p>
     <p className="approved-instruction-heading" style={{ top: 2403.84 }}>BE ACCURATE AND QUICK</p>
-    <p className="approved-instruction-copy" style={{ top: 2542.08 }}>Highest correct count wins.</p>
-    <p className="approved-instruction-copy" style={{ top: 2631.936 }}>Lowest total time breaks a tie.</p>
     <ApprovedButton label="Next" left={640} top={3000} onClick={onNext} />
   </div>;
 }

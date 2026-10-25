@@ -1,13 +1,15 @@
 # AI or Real — touchscreen game
 
-Source: [idagcc/ai-or-real](https://github.com/idagcc/ai-or-real). Download the ready-to-run Windows ZIP from [release v1.1.0](https://github.com/idagcc/ai-or-real/releases/tag/v1.1.0). Extract the entire archive before opening **AI or Real.exe**.
+Source: [idagcc/ai-or-real](https://github.com/idagcc/ai-or-real). Download the ready-to-run Windows ZIP from [release v1.1.1](https://github.com/idagcc/ai-or-real/releases/tag/v1.1.1). Extract the entire archive before opening **AI or Real.exe**.
 
 A local game for a Windows portrait touchscreen. The landing screen is the leaderboard, followed by registration, instructions, a random ten-question round and a score. The finished round is saved on this computer. The public leaderboard follows the approved Figma layout and shows rank, agent name, correct answers and correct-answer time. Email addresses and the calculated score remain in the operator export.
+
+Registration, instructions and gameplay return to the home screen after 30 seconds without a tap, key press or text input. The reset clears the unfinished session. Operator settings can adjust this inactivity period; existing installations using the previous 120-second default use 30 seconds after updating.
 
 ## Run on Windows
 
 1. Set Windows **Settings → System → Display → Display orientation** to **Portrait** and select **2160 × 3840** where supported. Set the touchscreen as the correct display in Windows touch settings. The app selects a portrait display if one is attached; Windows controls the display's physical rotation.
-2. Extract **AI-or-Real-1.1.0-windows-x64.zip** completely, then open **AI or Real.exe** inside the extracted folder. Keep the other files beside it. The app opens in fullscreen kiosk mode. Keep a keyboard available for the operator controls below.
+2. Extract **AI-or-Real-1.1.1-windows-x64.zip** completely, then open **AI or Real.exe** inside the extracted folder. Keep the other files beside it. The app opens in fullscreen kiosk mode. Keep a keyboard available for the operator controls below.
 3. Test registration and all ten questions on the physical touchscreen before opening the event. Check that touch points match the portrait screen and that tapping a field brings up the intended keyboard.
 
 The game works offline once installed. No email-verification service is required. Email validation checks address syntax and suggests corrections to common domain typos; it does **not** prove that an address exists or belongs to the agent.
